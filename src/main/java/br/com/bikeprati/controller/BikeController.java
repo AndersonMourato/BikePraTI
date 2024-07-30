@@ -21,6 +21,12 @@ public class BikeController {
         return ResponseEntity.ok().body(bikeList);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Bike> getBike(@PathVariable Integer id) {
+        Bike bike = bikeService.findById(id);
+        return ResponseEntity.ok().body(bike);
+    }
+
     @PostMapping
     public ResponseEntity<Bike> saveBike(@RequestBody Bike bike){
         return ResponseEntity.ok().body(bikeService.save(bike));
