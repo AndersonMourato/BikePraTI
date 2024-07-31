@@ -2,6 +2,7 @@ package br.com.bikeprati.controller;
 
 import br.com.bikeprati.models.Bike;
 import br.com.bikeprati.service.BikeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +34,13 @@ public class BikeController {
     }
 
     @PutMapping
-    public ResponseEntity<Bike> updateBike(@RequestBody Bike bike){
+    public ResponseEntity<Bike> updateBike(@Valid @RequestBody Bike bike){
         return ResponseEntity.ok().body(bikeService.update(bike));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Bike> deleteBike(@PathVariable Integer id){
-        bikeService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteBike(@PathVariable Integer id){
+        String msg = bikeService.deleteById(id);
+        return ResponseEntity.ok().body(msg);
     }
 }

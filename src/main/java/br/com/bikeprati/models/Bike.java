@@ -1,20 +1,29 @@
 package br.com.bikeprati.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 public class Bike {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull(message = "O ID não pode ser null.")
     Integer id;
+
     String descricao;
     String modelo;
-    String dataCadastro;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    Date dataCadastro;
     Double preco;
 
     public Integer getId() {
@@ -41,11 +50,11 @@ public class Bike {
         this.modelo = modelo;
     }
 
-    public String getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(String dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
@@ -60,7 +69,7 @@ public class Bike {
     public Bike() {
     }
 
-    public Bike(Integer id, String descricao, String modelo, String dataCadastro, Double preco) {
+    public Bike(Integer id, String descricao, String modelo, Date dataCadastro, Double preco) {
         this.id = id;
         this.descricao = descricao;
         this.modelo = modelo;
